@@ -7,7 +7,7 @@ namespace LoggingApp01.Models
 {
     using Newtonsoft.Json;
 
-    public class Item
+    public class LogItem
     {
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }

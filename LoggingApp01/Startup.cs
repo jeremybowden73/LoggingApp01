@@ -60,7 +60,7 @@ namespace LoggingApp01
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            DocumentDBRepository<Models.Item>.Initialize();
+            DocumentDBRepository<Models.LogItem>.Initialize();
         }
     }
 }

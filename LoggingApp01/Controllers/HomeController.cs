@@ -13,7 +13,7 @@ namespace LoggingApp01.Controllers
         [ActionName("Index")]
         public async Task<IActionResult> Index()
         {
-            var items = await DocumentDBRepository<Item>.GetItemsAsync(d => !d.Completed);
+            var items = await DocumentDBRepository<LogItem>.GetItemsAsync(d => !d.Completed);
             return View(items);
         }
 
@@ -28,11 +28,11 @@ namespace LoggingApp01.Controllers
         [HttpPost]
         [ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateAsync([Bind("Id,Name,Description,Completed")] Item item)
+        public async Task<ActionResult> CreateAsync([Bind("Id,Name,Description,Completed")] LogItem item)
         {
             if (ModelState.IsValid)
             {
-                await DocumentDBRepository<Item>.CreateItemAsync(item);
+                await DocumentDBRepository<LogItem>.CreateItemAsync(item);
                 return RedirectToAction("Index");
             }
 
@@ -42,11 +42,11 @@ namespace LoggingApp01.Controllers
         [HttpPost]
         [ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync([Bind("Id,Name,Description,Completed")] Item item)
+        public async Task<ActionResult> EditAsync([Bind("Id,Name,Description,Completed")] LogItem item)
         {
             if (ModelState.IsValid)
             {
-                await DocumentDBRepository<Item>.UpdateItemAsync(item.Id, item);
+                await DocumentDBRepository<LogItem>.UpdateItemAsync(item.Id, item);
                 return RedirectToAction("Index");
             }
 
@@ -61,7 +61,7 @@ namespace LoggingApp01.Controllers
                 return BadRequest();
             }
 
-            Item item = await DocumentDBRepository<Item>.GetItemAsync(id);
+            LogItem item = await DocumentDBRepository<LogItem>.GetItemAsync(id);
             if (item == null)
             {
                 return NotFound();
@@ -78,7 +78,7 @@ namespace LoggingApp01.Controllers
                 return BadRequest();
             }
 
-            Item item = await DocumentDBRepository<Item>.GetItemAsync(id);
+            LogItem item = await DocumentDBRepository<LogItem>.GetItemAsync(id);
             if (item == null)
             {
                 return NotFound();
@@ -92,14 +92,14 @@ namespace LoggingApp01.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmedAsync([Bind("Id")] string id)
         {
-            await DocumentDBRepository<Item>.DeleteItemAsync(id);
+            await DocumentDBRepository<LogItem>.DeleteItemAsync(id);
             return RedirectToAction("Index");
         }
 
         [ActionName("Details")]
         public async Task<ActionResult> DetailsAsync(string id)
         {
-            Item item = await DocumentDBRepository<Item>.GetItemAsync(id);
+            LogItem item = await DocumentDBRepository<LogItem>.GetItemAsync(id);
             return View(item);
         }
 
